@@ -169,8 +169,7 @@ export const AdvancedModal = ({ activeTab, onClose }: AdvancedModalProps) => {
     if (!netaSearch.trim()) return;
     setNetaLoading(true);
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "";
-      const res = await fetch(`${apiUrl}/api/candidates/search?q=${encodeURIComponent(netaSearch)}`);
+      const res = await fetch(`http://localhost:5000/api/candidates/search?q=${encodeURIComponent(netaSearch)}`);
       const data = await res.json();
       setNetas(data.candidates || []);
     } catch (e) {

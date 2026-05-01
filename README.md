@@ -1,12 +1,12 @@
 # Matdaan-Mitra: The Zero-Gravity Democracy Assistant 🌌🗳️
 
 ## 🌐 Live Demo
-👉 **Live App**: [https://election-guide-ai-frontend-bmb4e3v2mq-uc.a.run.app](https://election-guide-ai-frontend-bmb4e3v2mq-uc.a.run.app)  
-👉 **Backend API**: [https://election-guide-ai-backend-bmb4e3v2mq-uc.a.run.app](https://election-guide-ai-backend-bmb4e3v2mq-uc.a.run.app)  
-👉 **Health Check**: [https://election-guide-ai-backend-bmb4e3v2mq-uc.a.run.app/health](https://election-guide-ai-backend-bmb4e3v2mq-uc.a.run.app/health)
+👉 **Live App**: [https://frontend-1086240902693.asia-south1.run.app](https://frontend-1086240902693.asia-south1.run.app)  
+👉 **Backend API**: [https://backend-1086240902693.asia-south1.run.app](https://backend-1086240902693.asia-south1.run.app)  
+👉 **Health Check**: [https://backend-1086240902693.asia-south1.run.app/health](https://backend-1086240902693.asia-south1.run.app/health)
 
 ## 📂 GitHub Repository
-👉 [https://github.com/tanishq4220/Election-Guide-AI](https://github.com/tanishq4220/Election-Guide-AI)
+👉 [https://github.com/Parthcodes7/Matdaan-Mitra](https://github.com/Parthcodes7/Matdaan-Mitra)
 
 > **"This system reduces confusion for first-time voters by converting complex election procedures into interactive, personalized guidance."**
 
@@ -208,7 +208,7 @@ Election-Guide-AI/
 
 ## 👨‍💻 Installation & Setup
 
-1.  **Clone the Repo**: `git clone https://github.com/tanishq4220/Election-Guide-AI.git`
+1.  **Clone the Repo**: `git clone https://github.com/Parthcodes7/Matdaan-Mitra.git`
 2.  **Backend**: 
     ```bash
     cd backend && npm install && cp .env.example .env
