@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: '/api/:path*',
-        destination: 'https://election-guide-ai-backend-bmb4e3v2mq-uc.a.run.app/api/:path*',
+        destination: 'https://backend-1086240902693.asia-south1.run.app/api/:path*',
       },
     ];
   },

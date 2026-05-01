@@ -45,7 +45,7 @@ const getElectionResponse = async (prompt, history = [], userId = null, mode = "
     const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
 
     const systemInstruction = `
-      You are "Election Guide AI".
+      You are "Matdaan-Mitra".
       Explain in simple, step-by-step format.
       Support English and Hindi.
       Current Mode: ${mode}.

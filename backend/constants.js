@@ -1,5 +1,5 @@
 /**
- * Centralized constants for the Election Guide AI backend.
+ * Centralized constants for the Matdaan-Mitra backend.
  * Consolidates magic numbers, strings, and configuration values
  * to improve maintainability and code quality.
  * @module constants

@@ -1,11 +1,11 @@
 /**
- * Comprehensive API endpoint tests for the Election Guide AI backend.
+ * Comprehensive API endpoint tests for the Matdaan-Mitra backend.
  * Covers chat validation, health checks, quiz API, root endpoints, and 404 handling.
  */
 const request = require('supertest');
 const app = require('../server');
 
-describe('Election Guide API', () => {
+describe('Matdaan-Mitra API', () => {
   // ─── Chat Endpoint Tests ────────────────────────────────────────────
   describe('POST /api/chat', () => {
     it('should return 400 for empty prompt', async () => {

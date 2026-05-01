@@ -1,6 +1,6 @@
 /**
  * AI chat route handler with input validation, caching, and analytics.
- * Provides the primary chat endpoint for the Election Guide AI assistant.
+ * Provides the primary chat endpoint for the Matdaan-Mitra assistant.
  * @module routes/aiRoutes
  */
 const express = require('express');

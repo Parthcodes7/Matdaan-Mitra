@@ -2,9 +2,9 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Election Guide AI — Your Intelligent Democracy Assistant",
+  title: "Matdaan-Mitra — Your Intelligent Democracy Assistant",
   description:
-    "AI-powered voting assistant that simplifies democracy for every citizen. Get personalized election guidance, readiness checks, and instant answers.",
+    "An AI-powered application providing real-time, personalized voting assistance and democratic education.",
   keywords: [
     "election",
     "voting",
@@ -16,18 +16,18 @@ export const metadata: Metadata = {
     "polling booth",
     "Voter ID",
   ],
-  authors: [{ name: "Election Guide AI Team" }],
+  authors: [{ name: "Matdaan-Mitra Team" }],
   openGraph: {
-    title: "Election Guide AI",
-    description: "Your intelligent guide to democracy — powered by Google Gemini",
-    type: "website",
-    siteName: "Election Guide AI",
+    title: "Matdaan-Mitra",
+    description: "Your intelligent democracy assistant.",
+    url: "https://matdaan-mitra.com",
+    siteName: "Matdaan-Mitra",
     locale: "en_IN",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Election Guide AI",
-    description: "AI-powered voting assistant — simplifying democracy for every citizen",
+    title: "Matdaan-Mitra",
+    description: "Your intelligent democracy assistant.",
   },
   robots: { index: true, follow: true },
   manifest: "/manifest.json",
@@ -49,7 +49,7 @@ export default function RootLayout({
       <head>
         <meta name="color-scheme" content="dark" />
       </head>
-      <body className="min-h-full flex flex-col font-sans">
+      <body className="min-h-screen antialiased selection:bg-accent/30 flex flex-col">
         {/* Skip Navigation Link — Accessibility */}
         <a
           href="#main-content"
@@ -58,7 +58,7 @@ export default function RootLayout({
         >
           Skip to main content
         </a>
-        <main id="main-content" role="main" aria-label="Election Guide AI Application">
+        <main id="main-content" role="main" aria-label="Matdaan-Mitra Application">
           {children}
         </main>
       </body>

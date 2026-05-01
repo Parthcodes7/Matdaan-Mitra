@@ -1,6 +1,6 @@
 # Deployment Guide
 
-This guide explains how to deploy the **Election Guide AI** application.
+This guide explains how to deploy the **Matdaan-Mitra** application.
 
 ## 1. Backend Deployment (Render / Heroku)
 
@@ -44,7 +44,7 @@ This guide explains how to deploy the **Election Guide AI** application.
 ## 3. Firebase Setup
 
 1. Go to the [Firebase Console](https://console.firebase.google.com/).
-2. Create a new project named "Election Guide AI".
+2. Create a new project named "Matdaan-Mitra".
 3. Enable **Authentication** (Google Sign-In).
 4. Enable **Firestore Database** (Start in production or test mode).
 5. Add a Web App to your project to get your `firebaseConfig` keys.

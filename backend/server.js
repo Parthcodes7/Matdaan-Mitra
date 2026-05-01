@@ -1,5 +1,5 @@
 /**
- * Election Guide AI — Express Application Server
+ * Matdaan-Mitra — Express Application Server
  *
  * Production-grade backend with:
  * - Google Cloud Logging & BigQuery analytics
@@ -96,18 +96,20 @@ app.get("/health", (req, res) => {
 
 // ─── Root Status ────────────────────────────────────────────────────
 app.get("/", (req, res) => {
-  res.send("Election Guide AI Backend Running ✅");
+  res.send("Matdaan-Mitra Backend Running ✅");
 });
 
 // ─── Routes ─────────────────────────────────────────────────────────
 const aiRoutes = require('./routes/aiRoutes');
 const healthRoutes = require('./routes/healthRoutes');
 const quizRoutes = require('./routes/quizRoutes');
+const candidateRoutes = require('./routes/candidateRoutes');
 
 app.use('/api/ai', aiRoutes);
 app.use('/api', aiRoutes);
 app.use('/api/health', healthRoutes);
 app.use('/api/quiz', quizRoutes);
+app.use('/api/candidates', candidateRoutes);
 
 // ─── 404 Handler ────────────────────────────────────────────────────
 app.use((req, res) => {

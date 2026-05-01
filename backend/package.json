@@ -1,7 +1,7 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "Election Guide AI Backend — AI-powered voting assistant API",
+  "description": "Matdaan-Mitra Backend — AI-powered voting assistant API",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -19,7 +19,11 @@
       "!coverage/**",
       "!.eslintrc.js"
     ],
-    "coverageReporters": ["text", "lcov", "clover"],
+    "coverageReporters": [
+      "text",
+      "lcov",
+      "clover"
+    ],
     "testTimeout": 15000
   },
   "dependencies": {
@@ -27,6 +31,8 @@
     "@google-cloud/logging": "^11.0.0",
     "@google-cloud/secret-manager": "^5.0.0",
     "@google/generative-ai": "^0.21.0",
+    "axios": "^1.15.2",
+    "cheerio": "^1.2.0",
     "compression": "^1.8.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",

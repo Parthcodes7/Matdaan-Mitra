@@ -1,4 +1,4 @@
-# Election Guide AI: The Zero-Gravity Democracy Assistant 🌌🗳️
+# Matdaan-Mitra: The Zero-Gravity Democracy Assistant 🌌🗳️
 
 ## 🌐 Live Demo
 👉 **Live App**: [https://election-guide-ai-frontend-bmb4e3v2mq-uc.a.run.app](https://election-guide-ai-frontend-bmb4e3v2mq-uc.a.run.app)  
@@ -10,7 +10,7 @@
 
 > **"This system reduces confusion for first-time voters by converting complex election procedures into interactive, personalized guidance."**
 
-Election Guide AI is a premium, production-grade assistant designed to solve the informational gap in democratic processes. Using a stunning **Anti-Gravity UI** and **Google Gemini AI**, it transforms dry procedural data into an immersive, cosmic journey.
+Matdaan-Mitra is a premium, production-grade assistant designed to solve the informational gap in democratic processes. Using a stunning **Anti-Gravity UI** and **Google Gemini AI**, it transforms dry procedural data into an immersive, cosmic journey.
 
 ---
 

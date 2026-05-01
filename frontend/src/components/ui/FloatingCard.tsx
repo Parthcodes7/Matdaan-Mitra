@@ -10,13 +10,15 @@ interface FloatingCardProps {
   className?: string;
   /** Animation delay in seconds. */
   delay?: number;
+  /** Click handler. */
+  onClick?: () => void;
 }
 
 /**
  * Animated floating card component with hover effects.
  * Used for displaying resource cards with a premium glassmorphism style.
  */
-export const FloatingCard = ({ children, className, delay = 0 }: FloatingCardProps) => {
+export const FloatingCard = ({ children, className, delay = 0, onClick }: FloatingCardProps) => {
   return (
     <motion.article
       initial={{ y: 0 }}
@@ -38,9 +40,10 @@ export const FloatingCard = ({ children, className, delay = 0 }: FloatingCardPro
       }}
       className={cn(
         "relative p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-lg overflow-hidden",
-        "transition-shadow duration-300 focus-within:ring-2 focus-within:ring-blue-400",
+        "transition-shadow duration-300 focus-within:ring-2 focus-within:ring-blue-400 cursor-pointer",
         className
       )}
+      onClick={onClick}
     >
       <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 pointer-events-none" aria-hidden="true" />
       <div className="relative z-10">{children}</div>
