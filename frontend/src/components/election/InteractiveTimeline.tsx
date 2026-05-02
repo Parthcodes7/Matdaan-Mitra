@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { UserPlus, Vote, BarChart3, ShieldCheck } from "lucide-react";
 
 /** Timeline step definition. */
@@ -20,6 +20,8 @@ const steps: TimelineStep[] = [
 ];
 
 export const InteractiveTimeline = () => {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <div 
       className="relative w-full h-[600px] flex items-center justify-center overflow-hidden"
@@ -28,8 +30,8 @@ export const InteractiveTimeline = () => {
     >
       {/* Central Sun/Election Point */}
       <motion.div
-        animate={{ scale: [1, 1.1, 1], opacity: [0.5, 0.8, 0.5] }}
-        transition={{ duration: 4, repeat: Infinity }}
+        animate={shouldReduceMotion ? {} : { scale: [1, 1.1, 1], opacity: [0.5, 0.8, 0.5] }}
+        transition={{ duration: shouldReduceMotion ? 0 : 4, repeat: shouldReduceMotion ? 0 : Infinity }}
         className="w-32 h-32 rounded-full bg-blue-500/20 blur-3xl absolute"
         aria-hidden="true"
       />
@@ -51,7 +53,10 @@ export const InteractiveTimeline = () => {
               x: Math.cos(angle) * radius, 
               y: Math.sin(angle) * radius,
             }}
-            animate={{
+            animate={shouldReduceMotion ? {
+              x: Math.cos(angle) * radius, 
+              y: Math.sin(angle) * radius,
+            } : {
               x: [
                 Math.cos(angle) * radius,
                 Math.cos(angle + Math.PI / 2) * radius,
@@ -68,8 +73,8 @@ export const InteractiveTimeline = () => {
               ],
             }}
             transition={{
-              duration: 20,
-              repeat: Infinity,
+              duration: shouldReduceMotion ? 0 : 20,
+              repeat: shouldReduceMotion ? 0 : Infinity,
               ease: "linear",
             }}
             className="absolute"
@@ -95,8 +100,8 @@ export const InteractiveTimeline = () => {
           <motion.div
             key={`star-${i}`}
             initial={{ opacity: 0.1 }}
-            animate={{ opacity: [0.1, 0.5, 0.1] }}
-            transition={{ duration: Math.random() * 3 + 2, repeat: Infinity }}
+            animate={shouldReduceMotion ? {} : { opacity: [0.1, 0.5, 0.1] }}
+            transition={{ duration: shouldReduceMotion ? 0 : Math.random() * 3 + 2, repeat: shouldReduceMotion ? 0 : Infinity }}
             className="absolute w-1 h-1 bg-white rounded-full"
             style={{
               top: `${Math.random() * 100}%`,

@@ -10,7 +10,7 @@ import { AnalyticsDashboard } from "@/components/election/AnalyticsDashboard";
 import { CursorTrail } from "@/components/ui/CursorTrail";
 import { 
   Vote, Users, Search, ClipboardList,
-  MapPin, Eye, EyeOff,
+  MapPin, Eye, EyeOff, Phone
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -18,7 +18,7 @@ export default function Home() {
   const [reduceMotion, setReduceMotion] = useState(false);
   const [showOnboarding, setShowOnboarding] = useState(true);
   const [location] = useState("Mumbai, MH");
-  const [activeModal, setActiveModal] = useState<"eligibility" | "booth" | "id" | "candidates" | null>(null);
+  const [activeModal, setActiveModal] = useState<"eligibility" | "booth" | "id" | "candidates" | "helpline" | null>(null);
 
   return (
     <div className={`min-h-screen bg-[#050505] text-white overflow-x-hidden relative ${reduceMotion ? 'motion-reduce' : ''}`}>
@@ -103,37 +103,45 @@ export default function Home() {
       {/* Floating Info Cards - SHIFTED HERE */}
       <section className="relative z-10 pb-20 px-6" aria-labelledby="resources-heading">
         <h2 id="resources-heading" className="sr-only">Voter Resources</h2>
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
           <FloatingCard delay={0.1} onClick={() => setActiveModal("eligibility")}>
             <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500/30 to-blue-600/10 border border-blue-500/20 flex items-center justify-center text-blue-400 mb-6 shadow-[0_0_30px_rgba(59,130,246,0.15)]" aria-hidden="true">
               <Users size={28} />
             </div>
-            <h3 className="text-xl font-bold mb-3 text-white/90">Voter Eligibility</h3>
-            <p className="text-white/50 text-sm leading-relaxed">Find out if you qualify. Check citizenship status and residency rules.</p>
+            <h3 className="text-lg font-bold mb-3 text-white/90">Voter Eligibility</h3>
+            <p className="text-white/50 text-sm leading-relaxed">Check citizenship status and residency rules.</p>
           </FloatingCard>
 
           <FloatingCard delay={0.2} onClick={() => setActiveModal("booth")}>
             <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500/30 to-purple-600/10 border border-purple-500/20 flex items-center justify-center text-purple-400 mb-6 shadow-[0_0_30px_rgba(168,85,247,0.15)]" aria-hidden="true">
               <Search size={28} />
             </div>
-            <h3 className="text-xl font-bold mb-3 text-white/90">Find Your Booth</h3>
-            <p className="text-white/50 text-sm leading-relaxed">Locate your nearest polling station with real-time distance metrics.</p>
+            <h3 className="text-lg font-bold mb-3 text-white/90">Find Your Booth</h3>
+            <p className="text-white/50 text-sm leading-relaxed">Locate your nearest polling station easily.</p>
           </FloatingCard>
 
           <FloatingCard delay={0.3} onClick={() => setActiveModal("id")}>
             <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-orange-500/30 to-orange-600/10 border border-orange-500/20 flex items-center justify-center text-orange-400 mb-6 shadow-[0_0_30px_rgba(249,115,22,0.15)]" aria-hidden="true">
               <ClipboardList size={28} />
             </div>
-            <h3 className="text-xl font-bold mb-3 text-white/90">Required IDs</h3>
-            <p className="text-white/50 text-sm leading-relaxed">Full list of accepted IDs including digital versions like m-Aadhaar.</p>
+            <h3 className="text-lg font-bold mb-3 text-white/90">Required IDs</h3>
+            <p className="text-white/50 text-sm leading-relaxed">Full list of accepted IDs including m-Aadhaar.</p>
           </FloatingCard>
 
           <FloatingCard delay={0.4} onClick={() => setActiveModal("candidates")}>
             <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-pink-500/30 to-pink-600/10 border border-pink-500/20 flex items-center justify-center text-pink-400 mb-6 shadow-[0_0_30px_rgba(236,72,153,0.15)]" aria-hidden="true">
               <Users size={28} />
             </div>
-            <h3 className="text-xl font-bold mb-3 text-white/90">Know Your Netas</h3>
-            <p className="text-white/50 text-sm leading-relaxed">Search and discover candidate details, parties, and their constituencies.</p>
+            <h3 className="text-lg font-bold mb-3 text-white/90">Know Your Netas</h3>
+            <p className="text-white/50 text-sm leading-relaxed">Discover candidate details and constituencies.</p>
+          </FloatingCard>
+
+          <FloatingCard delay={0.5} onClick={() => setActiveModal("helpline")}>
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-red-500/30 to-red-600/10 border border-red-500/20 flex items-center justify-center text-red-400 mb-6 shadow-[0_0_30px_rgba(239,68,68,0.15)]" aria-hidden="true">
+              <Phone size={28} />
+            </div>
+            <h3 className="text-lg font-bold mb-3 text-white/90">Emergency Helplines</h3>
+            <p className="text-white/50 text-sm leading-relaxed">EC contacts, toll-free numbers, and cVIGIL app info.</p>
           </FloatingCard>
         </div>
       </section>

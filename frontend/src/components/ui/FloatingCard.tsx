@@ -44,6 +44,14 @@ export const FloatingCard = ({ children, className, delay = 0, onClick }: Floati
         className
       )}
       onClick={onClick}
+      role={onClick ? "button" : "article"}
+      tabIndex={onClick ? 0 : undefined}
+      onKeyDown={(e) => {
+        if (onClick && (e.key === 'Enter' || e.key === ' ')) {
+          e.preventDefault();
+          onClick();
+        }
+      }}
     >
       <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 pointer-events-none" aria-hidden="true" />
       <div className="relative z-10">{children}</div>

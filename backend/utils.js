@@ -45,7 +45,10 @@ function validateElectionQuery(prompt) {
  */
 function truncateHistory(history, maxMessages = DEFAULT_TRUNCATE_LIMIT) {
   if (!Array.isArray(history)) return [];
-  return history.slice(-maxMessages);
+  return history.slice(-maxMessages).map(msg => ({
+    role: msg.role === 'user' ? 'user' : 'model',
+    text: sanitizePrompt(msg.text || '')
+  }));
 }
 
 /**

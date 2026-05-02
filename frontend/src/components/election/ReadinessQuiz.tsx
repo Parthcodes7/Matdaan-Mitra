@@ -17,6 +17,7 @@ const questions: QuizQuestion[] = [
   { q: "Do you have a valid Voter ID (EPIC)?", a: true, tip: "A Voter ID is essential, but other documents like Aadhaar can sometimes work." },
   { q: "Is your name in the Electoral Roll?", a: true, tip: "Check nvsp.in to verify your registration status." },
   { q: "Do you know your polling booth location?", a: true, tip: "Use the Booth Locator on our home page!" },
+  { q: "Have you reviewed the backgrounds of your local candidates?", a: true, tip: "Use the 'Know Your Netas' tool to check their profiles and AI risk analysis." },
 ];
 
 export const ReadinessQuiz = () => {

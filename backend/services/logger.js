@@ -15,6 +15,7 @@ let log = null;
  */
 function getLogClient() {
   if (log) return log;
+  if (!process.env.GOOGLE_CLOUD_PROJECT) return null;
   try {
     const { Logging } = require('@google-cloud/logging');
     const logging = new Logging({ projectId: process.env.GOOGLE_CLOUD_PROJECT });
