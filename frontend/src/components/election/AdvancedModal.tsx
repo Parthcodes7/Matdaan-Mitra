@@ -207,7 +207,7 @@ export const AdvancedModal = ({ activeTab, onClose }: AdvancedModalProps) => {
     setNetaLoading(true);
     setNetaError(null);
     try {
-      const res = await fetch(`http://localhost:5000/api/candidates/search?q=${encodeURIComponent(netaSearch)}`);
+      const res = await fetch(`/api/candidates/search?q=${encodeURIComponent(netaSearch)}`);
       if (!res.ok) throw new Error("Backend API responded with an error");
       const data = await res.json();
       setNetas(data.candidates || []);
