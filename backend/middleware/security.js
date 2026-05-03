@@ -7,6 +7,7 @@
 const rateLimit = require('express-rate-limit');
 const {
   CHAT_RATE_LIMIT,
+  CANDIDATE_RATE_LIMIT,
   RATE_LIMIT_WINDOW_MS,
   MAX_PROMPT_LENGTH,
   MAX_HISTORY_LENGTH,
@@ -26,7 +27,41 @@ const chatLimiter = rateLimit({
   max: CHAT_RATE_LIMIT,
   standardHeaders: true,
   legacyHeaders: false,
-  keyGenerator: (req) => req.headers['x-forwarded-for'] || req.ip,
+  keyGenerator: (req) => {
+    // Take only the first IP from X-Forwarded-For to prevent IP spoofing
+    // via chained proxies, then validate it looks like an IP address.
+    const forwarded = req.headers['x-forwarded-for'];
+    if (forwarded) {
+      const firstIp = String(forwarded).split(',')[0].trim();
+      if (/^[\d.:a-fA-F]+$/.test(firstIp)) return firstIp;
+    }
+    return req.ip;
+  },
+  handler: (req, res) => {
+    res.status(HTTP_STATUS.TOO_MANY_REQUESTS).json({
+      error: ERROR_MESSAGES.RATE_LIMITED,
+      retryAfter: RATE_LIMIT_WINDOW_MS / 1000,
+    });
+  },
+});
+
+/**
+ * Rate limiter specifically for candidate search endpoints.
+ * @type {import('express-rate-limit').RateLimitRequestHandler}
+ */
+const candidateLimiter = rateLimit({
+  windowMs: RATE_LIMIT_WINDOW_MS,
+  max: CANDIDATE_RATE_LIMIT,
+  standardHeaders: true,
+  legacyHeaders: false,
+  keyGenerator: (req) => {
+    const forwarded = req.headers['x-forwarded-for'];
+    if (forwarded) {
+      const firstIp = String(forwarded).split(',')[0].trim();
+      if (/^[\d.:a-fA-F]+$/.test(firstIp)) return firstIp;
+    }
+    return req.ip;
+  },
   handler: (req, res) => {
     res.status(HTTP_STATUS.TOO_MANY_REQUESTS).json({
       error: ERROR_MESSAGES.RATE_LIMITED,
@@ -77,4 +112,4 @@ function validateChatInput(req, res, next) {
   next();
 }
 
-module.exports = { chatLimiter, validateChatInput };
+module.exports = { chatLimiter, candidateLimiter, validateChatInput };

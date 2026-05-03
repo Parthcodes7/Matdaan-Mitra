@@ -2,11 +2,21 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { X, CheckCircle, AlertCircle, MapPin, Search, CreditCard, ChevronRight, Users, Activity, Phone } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 interface AdvancedModalProps {
   activeTab: "eligibility" | "booth" | "id" | "candidates" | "helpline" | null;
   onClose: () => void;
+}
+
+/** Typed candidate shape from the MyNeta API. */
+interface Candidate {
+  name: string;
+  party: string;
+  constituency: string;
+  state: string;
+  hasCriminalRecord: boolean;
+  link: string;
 }
 
 export const AdvancedModal = ({ activeTab, onClose }: AdvancedModalProps) => {
@@ -17,10 +27,20 @@ export const AdvancedModal = ({ activeTab, onClose }: AdvancedModalProps) => {
   const [boothResult, setBoothResult] = useState<string | null>(null);
 
   const [netaSearch, setNetaSearch] = useState("");
-  const [netas, setNetas] = useState<any[]>([]);
+  const [netas, setNetas] = useState<Candidate[]>([]);
   const [netaLoading, setNetaLoading] = useState(false);
   const [netaError, setNetaError] = useState<string | null>(null);
   const [analyzingId, setAnalyzingId] = useState<number | null>(null);
+
+  // ── Escape key closes the modal (WCAG 2.1 §2.1.2) ─────────────────────────
+  const handleEsc = useCallback(
+    (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); },
+    [onClose]
+  );
+  useEffect(() => {
+    document.addEventListener("keydown", handleEsc);
+    return () => document.removeEventListener("keydown", handleEsc);
+  }, [handleEsc]);
 
   if (!activeTab) return null;
 

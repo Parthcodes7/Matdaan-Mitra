@@ -37,21 +37,39 @@ app.use(helmet({
   contentSecurityPolicy: {
     directives: {
       defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "'unsafe-inline'", "apis.google.com"],
-      connectSrc: ["'self'", "*.googleapis.com", "*.firebaseapp.com"],
+      // Remove 'unsafe-inline' — use nonces/hashes for inline scripts instead
+      scriptSrc: ["'self'", "apis.google.com"],
+      connectSrc: ["'self'", "*.googleapis.com", "*.firebaseapp.com", "*.firebase.googleapis.com"],
       imgSrc: ["'self'", "data:", "https:"],
-      styleSrc: ["'self'", "'unsafe-inline'"],
+      styleSrc: ["'self'", "'unsafe-inline'", "fonts.googleapis.com"],
+      fontSrc: ["'self'", "fonts.gstatic.com"],
+      frameSrc: ["'none'"],
+      objectSrc: ["'none'"],
     }
   },
   crossOriginEmbedderPolicy: false,
   crossOriginResourcePolicy: { policy: 'cross-origin' },
 }));
+// CORS — restrict to known origins; avoid wildcard in production
+const allowedOrigins = process.env.ALLOWED_ORIGINS
+  ? process.env.ALLOWED_ORIGINS.split(',')
+  : ['http://localhost:3000'];
+
 app.use(cors({
-  origin: process.env.ALLOWED_ORIGINS || "*",
+  origin: (origin, callback) => {
+    // Allow requests with no origin (e.g. server-to-server, curl)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin) || process.env.NODE_ENV !== 'production') {
+      return callback(null, true);
+    }
+    return callback(new Error(`CORS: Origin '${origin}' not allowed`), false);
+  },
   methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
 }));
 app.use(express.json({ limit: MAX_BODY_SIZE }));
+app.use(express.urlencoded({ extended: false, limit: MAX_BODY_SIZE }));
 
 // ─── Response Time Tracking ─────────────────────────────────────────
 app.use((req, res, next) => {
@@ -106,7 +124,7 @@ const quizRoutes = require('./routes/quizRoutes');
 const candidateRoutes = require('./routes/candidateRoutes');
 
 app.use('/api/ai', aiRoutes);
-app.use('/api', aiRoutes);
+// NOTE: Do NOT also mount aiRoutes on '/api' — it would shadow all other /api/* routes.
 app.use('/api/health', healthRoutes);
 app.use('/api/quiz', quizRoutes);
 app.use('/api/candidates', candidateRoutes);

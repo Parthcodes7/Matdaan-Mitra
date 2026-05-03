@@ -42,17 +42,17 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
  */
 const getElectionResponse = async (prompt, history = [], userId = null, mode = "detailed") => {
   try {
-    const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
-
-    const systemInstruction = `
-      You are "Matdaan-Mitra".
-      Explain in simple, step-by-step format.
-      Support English and Hindi.
-      Current Mode: ${mode}.
-      If mode is "simple", explain like I am 5 using easy analogies.
-      If mode is "detailed", provide comprehensive steps, timelines, and legal contexts.
-      Use bullet points for lists. Always be encouraging and non-partisan.
-    `;
+    // Pin to a specific model version to prevent silent breaking changes
+    const model = genAI.getGenerativeModel({
+      model: "gemini-1.5-flash",
+      systemInstruction: `You are "Matdaan-Mitra", India's official AI election guide.
+        Explain in simple, step-by-step format. Support both English and Hindi.
+        Current Mode: ${mode}.
+        If mode is "simple", explain like the user is 5 years old using easy analogies.
+        If mode is "detailed", provide comprehensive steps, timelines, and legal contexts.
+        Use bullet points for lists. Always be encouraging, factual, and strictly non-partisan.
+        Never generate political opinions or promote any party or candidate.`,
+    });
 
     const chat = model.startChat({
       history: history.map((msg) => ({
@@ -61,10 +61,12 @@ const getElectionResponse = async (prompt, history = [], userId = null, mode = "
       })),
       generationConfig: {
         maxOutputTokens: MAX_OUTPUT_TOKENS,
+        temperature: 0.4,
+        topP: 0.8,
       },
     });
 
-    const result = await chat.sendMessage([systemInstruction, prompt]);
+    const result = await chat.sendMessage(prompt);
     const response = await result.response;
     const text = response.text();
 

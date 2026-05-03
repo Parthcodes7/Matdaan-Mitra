@@ -47,12 +47,12 @@ function cacheMiddleware(ttl = DEFAULT_CACHE_TTL_SECONDS) {
 }
 
 /**
- * Generates an MD5 hash of a normalized prompt for cache key usage.
+ * Generates a SHA-256 hash of a normalized prompt for cache key usage.
  * @param {string} prompt - The user's prompt.
- * @returns {string} MD5 hash of the lowercase, trimmed prompt.
+ * @returns {string} SHA-256 hash of the lowercase, trimmed prompt.
  */
 function hashPrompt(prompt) {
-  return crypto.createHash('md5').update(prompt.toLowerCase().trim()).digest('hex');
+  return crypto.createHash('sha256').update(prompt.toLowerCase().trim()).digest('hex');
 }
 
 /**

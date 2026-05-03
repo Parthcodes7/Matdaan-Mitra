@@ -52,14 +52,15 @@ function truncateHistory(history, maxMessages = DEFAULT_TRUNCATE_LIMIT) {
 }
 
 /**
- * Creates an MD5 hash of a normalized prompt for cache key generation.
+ * Creates a SHA-256 hash of a normalized prompt for cache key generation.
  * Normalizes by lowercasing and trimming whitespace before hashing.
+ * SHA-256 is used over MD5 for stronger collision resistance.
  * @param {string} prompt - User prompt to hash.
- * @returns {string} 32-character hex hash string.
+ * @returns {string} 64-character hex hash string.
  */
 function hashPrompt(prompt) {
   return crypto
-    .createHash('md5')
+    .createHash('sha256')
     .update((prompt || '').toLowerCase().trim())
     .digest('hex');
 }

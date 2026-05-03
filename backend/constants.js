@@ -20,6 +20,12 @@ const GLOBAL_RATE_LIMIT = 100;
 /** Chat-specific rate limiter: max requests per window. */
 const CHAT_RATE_LIMIT = 30;
 
+/** Candidate search rate limiter: max requests per window. */
+const CANDIDATE_RATE_LIMIT = 20;
+
+/** Maximum allowed search query length in characters. */
+const MAX_SEARCH_QUERY_LENGTH = 100;
+
 /** Rate limiter window duration in milliseconds (15 minutes). */
 const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000;
 
@@ -63,6 +69,8 @@ const LOG_NAME = 'election-guide-api';
 const HTTP_STATUS = {
   OK: 200,
   BAD_REQUEST: 400,
+  UNAUTHORIZED: 401,
+  FORBIDDEN: 403,
   NOT_FOUND: 404,
   TOO_MANY_REQUESTS: 429,
   INTERNAL_SERVER_ERROR: 500,
@@ -82,6 +90,8 @@ const ERROR_MESSAGES = {
   AI_FAILURE: 'Failed to generate response from AI',
   ANSWERS_REQUIRED: 'Answers must be an array.',
   ANALYTICS_FAILURE: 'Failed to fetch analytics stats',
+  SEARCH_QUERY_REQUIRED: 'Search query "q" is required and must be a non-empty string.',
+  SEARCH_QUERY_TOO_LONG: `Search query exceeds the maximum length of ${MAX_SEARCH_QUERY_LENGTH} characters.`,
 };
 
 module.exports = {
@@ -90,6 +100,8 @@ module.exports = {
   DEFAULT_TRUNCATE_LIMIT,
   GLOBAL_RATE_LIMIT,
   CHAT_RATE_LIMIT,
+  CANDIDATE_RATE_LIMIT,
+  MAX_SEARCH_QUERY_LENGTH,
   RATE_LIMIT_WINDOW_MS,
   AI_CACHE_TTL_SECONDS,
   DEFAULT_CACHE_TTL_SECONDS,
