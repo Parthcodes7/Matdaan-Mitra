@@ -25,13 +25,19 @@ A context-aware, intelligent ecosystem that provides:
 2.  **Actionable Intelligence**: A "Readiness Check" that gives a personalized score and steps.
 3.  **Conversational Support**: A Gemini-powered assistant with "Simple" and "Detailed" modes.
 4.  **Premium Experience**: A zero-gravity UI that keeps users engaged through motion and depth.
+5.  **Bilingual Inclusivity**: Full Hindi and English support for nationwide reach.
+6.  **Social Commitment**: A live Vote Pledge wall for community social proof.
 
 ---
 
 ## 🚀 Key Features (Hackathon "WOW" Factors)
 
 - **🌌 Anti-Gravity UI**: Floating cards with smooth drift, mouse-based parallax, and a custom cursor trail for a high-end "Apple/Google" feel.
-- **🧠 Context-Aware AI**: Gemini Pro integration that remembers chat history and adapts its tone (Simple vs. Detailed).
+- **⏳ Live Election Countdown**: A precision timer counting down to the 2029 Lok Sabha elections, complete with animated flip-cards.
+- **🤝 Community Vote Pledge**: A persistent wall where citizens commit to their democratic duty, featuring a live global pledge counter.
+- **🧠 Context-Aware AI**: Gemini 1.5 Flash integration that remembers chat history and adapts its tone (Simple vs. Detailed).
+- **🌐 Full Bilingual Support**: Toggle between **English** and **हिंदी** with a single click across the entire interface.
+- **📤 Smart Result Sharing**: Share your voter readiness score via Web Share API, Twitter (X), or WhatsApp.
 - **📊 Deep Google Cloud Integration**: 
     - **Google BigQuery**: Real-time analytics pipeline tracking all chat interactions, response times, and usage patterns (`backend/services/analytics.js`).
     - **Google Cloud Logging**: Structured logging with severity levels (INFO/WARN/ERROR) for production monitoring (`backend/services/logger.js`).
@@ -90,6 +96,8 @@ A context-aware, intelligent ecosystem that provides:
 | **ESLint** | Code Quality | Enforced code standards with automated linting (strict mode). |
 | **node-cache** | Efficiency | In-memory caching for AI responses and GET endpoints. |
 | **compression** | Performance | Gzip compression middleware reducing response sizes by ~70%. |
+| **canvas-confetti** | Celebration | High-performance confetti bursts for quiz completion. |
+| **Lucide React** | Iconography | Consistent, beautiful, and accessible SVG icons. |
 
 ---
 
