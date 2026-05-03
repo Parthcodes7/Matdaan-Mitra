@@ -41,3 +41,4 @@ backend/coverage/
 # Backend specific
 backend/node_modules/
 backend/.env
+backend/test_output.txt

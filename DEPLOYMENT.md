@@ -1,57 +1,68 @@
-# Deployment Guide
+# Deployment Guide — Matdaan-Mitra
 
-This guide explains how to deploy the **Matdaan-Mitra** application.
+This guide explains how to deploy the **Matdaan-Mitra** application to production using **Google Cloud Run**.
 
-## 1. Backend Deployment (Render / Heroku)
+## 1. Prerequisites
 
-1. Ensure your `backend` directory has a `package.json` with a `start` script:
-   ```json
-   "scripts": {
-     "start": "node server.js"
-   }
-   ```
-2. Push your code to GitHub.
-3. Sign in to Render (render.com) and create a new **Web Service**.
-4. Connect your GitHub repository.
-5. Set the following:
-   - **Root Directory**: `backend`
-   - **Build Command**: `npm install`
-   - **Start Command**: `npm start`
-6. Add the Environment Variables under the **Environment** tab:
-   - `PORT`: (Render sets this automatically, but ensure your code uses `process.env.PORT`)
-   - `GEMINI_API_KEY`: Your Google Gemini API key.
-   - `FIREBASE_SERVICE_ACCOUNT`: Stringified JSON of your Firebase service account (if needed) or individual keys.
-7. Click **Deploy**. Note the URL (e.g., `https://election-ai-backend.onrender.com`).
+- A Google Cloud Project (e.g., `matdaan-mitra-495008`).
+- Google Cloud SDK (`gcloud`) installed and authenticated.
+- Docker installed (optional, if building locally) or using Google Cloud Build.
 
-## 2. Frontend Deployment (Vercel)
+## 2. Backend Deployment (Google Cloud Run)
 
-1. Navigate to the `frontend` directory.
-2. In your `.env.local` or Next.js config, add the backend URL as an environment variable:
-   ```env
-   NEXT_PUBLIC_API_URL=https://election-ai-backend.onrender.com
-   NEXT_PUBLIC_FIREBASE_API_KEY=your_key
-   NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_domain
-   NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_id
-   ```
-3. Push your code to GitHub.
-4. Sign in to Vercel (vercel.com) and click **Add New...** -> **Project**.
-5. Import your GitHub repository.
-6. Set the **Framework Preset** to Next.js.
-7. Set the **Root Directory** to `frontend`.
-8. Add the Environment Variables (same as above).
-9. Click **Deploy**.
+The backend is a Node.js/Express app. We deploy it as a serverless container.
 
-## 3. Firebase Setup
+1.  **Configure Environment**: Ensure `backend/.env` is ignored by git but set as environment variables in Cloud Run.
+2.  **Deploy Command**:
+    ```bash
+    gcloud run deploy backend \
+      --source backend \
+      --project=YOUR_PROJECT_ID \
+      --region=asia-south1 \
+      --allow-unauthenticated \
+      --set-env-vars GOOGLE_CLOUD_PROJECT=YOUR_PROJECT_ID,NODE_ENV=production
+    ```
+3.  **Note the URL**: After deployment, Cloud Run will provide a service URL (e.g., `https://backend-xxx.a.run.app`).
 
-1. Go to the [Firebase Console](https://console.firebase.google.com/).
-2. Create a new project named "Matdaan-Mitra".
-3. Enable **Authentication** (Google Sign-In).
-4. Enable **Firestore Database** (Start in production or test mode).
-5. Add a Web App to your project to get your `firebaseConfig` keys.
-6. For the backend, generate a Service Account Key from **Project Settings -> Service Accounts -> Generate new private key** for admin operations.
+## 3. Frontend Deployment (Google Cloud Run)
 
-## 4. Post-Deployment Checks
+The frontend is a Next.js app. We deploy it using the same container-based approach.
+
+1.  **Update API URL**: In `frontend/.env.local`, set `NEXT_PUBLIC_API_URL` to your backend service URL.
+2.  **Deploy Command**:
+    ```bash
+    gcloud run deploy frontend \
+      --source frontend \
+      --project=YOUR_PROJECT_ID \
+      --region=asia-south1 \
+      --allow-unauthenticated
+    ```
+3.  **Note the URL**: This will be your primary application link.
+
+## 4. Google Cloud Services Setup
+
+### BigQuery (Analytics)
+1.  Create a dataset named `matdaan_analytics` (as defined in `constants.js`).
+2.  Create a table named `chat_logs`.
+3.  The backend service account must have `BigQuery Data Editor` and `BigQuery Job User` roles.
+
+### Cloud Logging (Monitoring)
+1.  Logs are automatically sent to Google Cloud Logging if `GOOGLE_CLOUD_PROJECT` is set.
+2.  View them in the **Logs Explorer** under the `global` resource.
+
+### Secret Manager (Security)
+1.  Store sensitive keys like `GEMINI_API_KEY` in Secret Manager.
+2.  The backend uses the `getSecret` utility to fetch them at runtime.
+
+## 5. Post-Deployment Checks
 
 - Verify the frontend loads over HTTPS.
-- Test the Google Login flow.
-- Send a message to the AI and ensure the backend is securely proxying the request to Gemini.
+- Test the **Hindi/English** toggle.
+- Check the **Election Countdown** is active.
+- Submit a **Vote Pledge** and ensure it persists locally.
+- Complete the **Readiness Quiz** and test the **Share** feature.
+- Verify that chat interactions are appearing in your BigQuery `chat_logs` table.
+
+---
+**Developed for the 2026 Innovation Hackathon.**
+*"Empowering every citizen through intelligent guidance."*
